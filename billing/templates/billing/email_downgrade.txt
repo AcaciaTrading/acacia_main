@@ -1,0 +1,6 @@
+Hi {{ username }},
+
+Your Acacia account has been downgraded as you did not pay your invoice on time. You will need to purchase a new subscription to upgrade your account again.
+
+Best,
+Acacia Trading Team

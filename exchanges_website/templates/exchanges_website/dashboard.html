@@ -1,0 +1,11 @@
+{% extends "exchanges_website/base.html" %}
+
+{% block content %}
+<h1>Main Page</h1>
+{% if user.auth_token %}
+<p>{{ user.auth_token.key }}</p>
+{% else %}
+<p>You do not currently have an API token.</p>
+{% endif %}
+<a class="btn btn-primary" href="{% url 'exchanges_website:new_token' %}">Generate New API Token</a>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Plans{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Change Your Subscription</h1>
+<br>
+<div class="row text-center">
+{% for plan in object_list %}
+    <div class="plan col-sm-{% widthratio 24 object_list.count 1 %} col-md-{% widthratio 12 object_list.count 1 %}">
+        {% include "billing/_plan_ul.html" %}
+    </div>
+{% endfor %}
+</div>
+
+<div class="row text-center">
+    <p class="help-block">Upon changing your subscription you will immediately be charged the monthly amount.</p>
+</div>
+
+<script>
+$("form").submit(function (e) {
+    //console.log(parseInt(e.currentTarget.getAttribute("data-bots"), 10) < {{ user.bots.all.count }});
+    if(parseInt(e.currentTarget.getAttribute("data-bots"), 10) < {{ user.bots.all.count }}) {
+        if(!confirm("Are you sure you want to downgrade? Some of your bots will be deleted.")) {
+            console.log("cancel!");
+            e.preventDefault();
+        }
+        console.log("not cancel!");
+    }
+});
+</script>
+{% endblock %}

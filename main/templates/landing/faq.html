@@ -1,0 +1,43 @@
+{% extends "landing/base.html" %}
+
+{% block title %}FAQ | Acacia Trading{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<section id="main" class="container">
+    <header>
+        <h2>Frequently Asked Questions</h2>
+        <p>Anything we didn't answer? Ask us at contact [at] tradeacacia.com </p>
+    </header>
+    <div class="row">
+        <div class="12u">
+            <!-- Text -->
+            <section class="box">
+                <h3>How does it work?</h3>
+                <p>The Acacia Trading system is a service that allows traders to implement their own trade strategies (as opposed to one set strategy) for trading cryptocurrencies automatically from a cloud-based platform. Users can utilize 6 different types of <a href="http://en.wikipedia.org/wiki/Moving_average">moving averages</a> (<a href="http://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average">Exponential Moving Average</a>, <a href="http://en.wikipedia.org/wiki/Moving_average#Weighted_moving_average">Weighted Moving Average</a>, <a href="http://en.wikipedia.org/wiki/Moving_average#Simple_moving_average">Simple Moving Average</a>, and <a href="http://daytrading.about.com/od/indicators/a/Triangular.htm">Triangular Moving Average</a>, and others), as well as 7 different kinds of indicators (Average Crossover, MACD, RSI, ROC, Stochastic, Aroon Up, and Aroon Down). Users can alter how the moving averages are calculated and set thresholds on indicators that trigger buy and sell orders.</p><p> </p>
+                
+                <hr/>
+                <h3>What strategy should I use?</h3>
+                <p>It can be difficult to find a good strategy to use. We've tried many strategies ourselves but haven't found a definitively superior strategy. A common strategy implemented on trading platforms is:</p>
+                <p>Trade Interval: One Hour</p><p>First Average: EMA 10</p>
+                <p>Second Average: EMA 21</p><p>Buy Threshold: 0.25  Sell Threshold: 0.25</p>
+                <p><em>All other indicators and safeties should be disabled.</em></p>
+                
+                <hr/>
+                <h3>What are the risks?</h3>
+                <p>We run our bot using API keys - we never receive your exchange account details. That means that we only have access to specific actions on your account. Your API keys give the bot permission to view account balances and trade history, as well as place and cancel orders. If you want to look into it for yourself, you can check out the <a href="https://btc-e.com/api/documentation">BTC-e API documentation page</a>.</p>
+                <p>As with all kinds of trading, there is a risk of losing money to the market. With the Acacia Trading Bot, the risks depends entirely on your trading strategy. You can backtest your bot settings to see how well they would have performed in the past, but remember that <strong>past performance is no guarantee of future success.</strong></p>
+                
+                <hr/>
+                <h3>What kind of profit can I expect?</h3>
+                <p>Your profit can vary significantly depending on your trading strategy. Certain strategies will make varying amounts of profit depending on the current market condition. In order to minimize risk, be sure to backtest any strategy you want to use.</p>
+                
+                <hr/>
+                <h3>Do you plan to expand to other exchanges?</h3>
+                <p>We are in the process of adding support for all major exchanges. If you had a specific exchange in mind, shoot us an email, and we'll see about adding support!</p>
+            </section>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

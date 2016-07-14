@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Verification Success{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <h3>Verification Successful</h3>
+    <br>
+    <p class="lead">You've successfully verified your account!  Click the link below login to the control panel.</p>
+    <a class="btn btn-success btn-lg" href="{% url 'main:index' %}">Access Control Panel</a>
+    </div>
+{% endblock %}

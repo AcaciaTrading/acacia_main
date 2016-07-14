@@ -1,0 +1,10 @@
+Hi {{ username }},
+
+You have been issued an invoice for {{ amount }} for your Acacia Trading Account, which is due {{ due_date }}.
+
+Pay your invoice here:
+
+{{ base_url }}{% url 'billing:pay_invoice' invoice_id %}
+
+Best,
+Acacia Trading Team

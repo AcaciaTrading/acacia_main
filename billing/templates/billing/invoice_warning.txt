@@ -1,0 +1,10 @@
+Hi {{ username }},
+
+Your Acacia invoice is due soon! If you do not pay {{ amount }} by {{ due_date }}, your account will be downgraded.
+
+Pay invoice here:
+
+{{ base_url }}{% url 'billing:pay_invoice' invoice_id %}
+
+Best,
+Acacia Trading Team

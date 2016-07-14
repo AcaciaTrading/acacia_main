@@ -1,0 +1,47 @@
+<div class="panel panel-default col-sm-3 panel-bot" id="panel-{{ obj.OBJ_NAME }}-{{ obj.pk }}">
+    <h4>{{ obj.name }}</h4>
+{% if obj.strategy.pk %}
+    {% if obj.enabled == True %}
+        <strong style="color: #5cb85c;">Active</strong>
+    {% else %}
+        <strong style="color: #d9534f;">Disabled</strong>
+    {% endif %}<br>
+    <strong>Exchange:</strong> {{ obj.exchange }} <br>
+    <strong>Trading Pair: </strong> {{ obj.trading_pair }} <br>
+    <strong>Strategy:</strong> {{ obj.strategy.name }}<br>
+{% elif not obj.has_profit %}
+    <strong>{{ obj.NO_PROFIT_MESSAGE }}</strong>
+{% else %}
+    <strong>{{ obj.PROFIT_MESSAGE }}</strong><br>
+    Primary Profit:
+    <strong>
+        {% if obj.profit.0 >= 0 %}
+        <span class="text-success">
+        {% else %}
+        <span class="text-danger">
+        {% endif %}
+            {{ obj.profit.0 }}%
+        </span>
+    </strong><br>
+    Secondary Profit:
+    <strong>
+        {% if obj.profit.1 >= 0 %}
+        <span class="text-success">
+        {% else %}
+        <span class="text-danger">
+        {% endif %}
+            {{ obj.profit.1 }}%
+        </span>
+    </strong>
+{% endif %}
+    {% with "main:"|add:obj.EDIT_URL as edit_url %}
+    <a href="{% url edit_url obj.pk %}" class="btn btn-primary btn-view">
+        <strong>View / Edit</strong>
+    </a>
+    {% endwith %}
+    <button
+        class="btn btn-danger btn-delete delete-{{ obj.OBJ_NAME }}"
+        data-id="{{ obj.pk }}">
+        <strong>Delete</strong>
+    </button>
+</div>

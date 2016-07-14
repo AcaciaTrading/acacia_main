@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Strategy Editor{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <h1>Strategy Editor</h1>
+    <p class="lead">{{ item.name }}</p>
+</div>
+<div id="form"><!-- action="#" method="post">-->
+    <ul class="nav nav-pills tabs-centered" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#generalSettings" aria-controls="generalSettings" role="tab" data-toggle="tab">
+                General
+            </a>
+        </li> 
+        <li role="presentation">
+            <a href="#advancedSettings" aria-controls="advancedSettings" role="tab" data-toggle="tab">
+                Advanced
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#backtestSettings" aria-controls="backtestSettings" role="tab" data-toggle="tab">
+                Backtest
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#helpInfo" aria-controls="helpInfo" role="tab" data-toggle="tab">
+                Help
+            </a>
+        </li>
+    </ul>
+    <br><br>
+    <div class="tab-content">
+        <div id="generalSettings" role="tabpanel" class="tab-pane active">
+            <!--<h2>General Trading Settings</h2>-->
+                <div class="row">
+                    <div class="col-sm-6 col-md-5 col-lg-5">
+                        <h3>Strategy Configuration</h3>
+                            {% include "main/_strategy_form.html" %}
+                    </div>
+                    <div class="col-md-1 col-lg-1"></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <h4>
+                            <a 
+                                href="#" 
+                                data-toggle="popover" 
+                                data-content="This strategy uses 2 different moving averages. Once the shorter moving average is a specified percentage above the longer moving average, a buy order is triggered. When the shorter is a specific percentage below than the longer average, a sell order is triggered."
+                            ><span class="glyphicon glyphicon-question-sign"></span></a>
+                            Moving Average Crossover: 
+                            <select id="UsingAverage" name="UsingAverage" class="form-control toggle-select">
+                            {% if item.average_crossover %}
+                                <option value="1" selected="true">Enabled</option>
+                                <option value="0">Disabled</option>
+                            {% else %}
+                                <option value="1">Enabled</option>
+                                <option value="0" selected="true">Disabled</option>
+                            {% endif %}
+                            </select>
+                        </h4>
+                        <div id="UsingAverageTable">
+                            {% include "main/_average_crossover_form.html" %}
+                        </div>
+                    </div>
+                </div>
+            <button class="btn btn-success save">Save Settings</button>
+           </div> 
+            <div id="advancedSettings" role="tabpanel" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <h3>Indicators</h3>
+                        {% for indicator, explanation in indicator_explanations %}
+                            {% include "main/_indicator_form.html" %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <button class="btn btn-success save">Save Settings</button>
+                </div>
+                    <div id="backtestSettings" role="tabpanel" class="tab-pane">
+                        {% include "main/_backtest_form.html" %}
+            </div>
+            <div id="helpInfo" role="tabpanel" class="tab-pane">
+                <h3 class="text-center">Strategy Help</h3>
+                {% include "main/_strategy_help.html" %}
+            </div>
+        </div>
+</div>
+<br><br>
+
+{% include "main/_api_vars.html" %}
+<script src="{% static 'main/itemPage.js' %}"></script>
+<script src="{% static 'main/strategy.js' %}"></script>
+{% endblock %}

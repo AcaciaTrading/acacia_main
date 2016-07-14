@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Acacia Dashboard</h1>
+
+<h2>
+    Trading Bots
+    {% if user.customer.can_add_more_bots %}
+    - <button id="newBot" class="btn btn-xs btn-success">Create New</button>
+    {% endif %}
+</h2>
+<div class="row">
+{% for obj in bots %}
+    {% include "main/_dashboard_pane.html" %}
+{% endfor %}
+</div>
+
+<h2>
+    Strategies - <button id="newStrategy" class="btn btn-xs btn-success">Create New</button>
+</h2>
+<div class="row">
+{% for obj in strats %}
+    {% include "main/_dashboard_pane.html" %}
+{% endfor %}
+</div>
+
+{% include "main/_api_vars.html" %}
+
+<script src="{% static 'main/dashboard.js' %}"></script>
+{% endblock %}

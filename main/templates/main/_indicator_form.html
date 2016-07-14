@@ -1,0 +1,61 @@
+<div class="row"><!--class="col-md-6 col-sm-8">-->
+    <h4>
+        <a 
+            href="#" 
+            data-toggle="popover" 
+            data-content="{{ explanation.0 }}"
+        ><span class="glyphicon glyphicon-question-sign"></span></a>
+        {{ indicator }}: 
+        <select id="Using{{ indicator }}" name="Using{{ indicator }}" class="form-control toggle-select">
+            {% if indicator in item.indicators_list %}
+                <option value="1" selected="true">Enabled</option>
+                <option value="0">Disabled</option>
+            {% else %}
+                <option value="1">Enabled</option>
+                <option value="0" selected="true">Disabled</option>
+            {% endif %}
+        </select>
+    </h4>
+    <div id="Using{{ indicator }}Table">
+        <div class="col-sm-5 col-xs-6">
+            <div class="form-group">
+                <label for="{{indicator}}-buy_threshold" class="control-label">
+                    Buy Threshold
+                    <a 
+                        href="#" 
+                        data-toggle="popover" 
+                        data-content="{{ explanation.1 }}"
+                    ><span class="glyphicon glyphicon-question-sign"></span></a>
+                </label>
+                <input id="{{indicator}}-buy_threshold" name="{{indicator}}-buy_threshold" class="form-control" type="text"
+                {% for x in item.indicators.all %}
+                    {% if x.indicator_type == indicator %}
+                        value="{{ x.buy_threshold }}"
+                    {% endif %}
+                {% endfor %}
+                >
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5 col-xs-6">
+            <div class="form-group">
+                <label for="{{indicator}}-sell_threshold" class="control-label">
+                    Sell Threshold
+                    <a 
+                        href="#" 
+                        data-toggle="popover" 
+                        data-content="{{ explanation.2 }}"
+                    ><span class="glyphicon glyphicon-question-sign"></span></a>
+                </label>
+                <input id="{{indicator}}-sell_threshold" name="{{indicator}}-sell_threshold" class="form-control" type="text"
+                {% for x in item.indicators.all %}
+                    {% if x.indicator_type == indicator %}
+                        value="{{ x.sell_threshold }}"
+                    {% endif %}
+                {% endfor %}
+                >
+            </div>
+        </div>
+        <div class="col-sm-1"></div>
+    </div>
+</div>

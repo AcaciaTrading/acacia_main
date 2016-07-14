@@ -1,0 +1,12 @@
+body {
+    padding-top: 60px;
+}
+@media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+}
+
+#right-button {
+    margin-right: 25px;
+}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Success: Invoice ID #{{ invoice.pk }}{% endblock %}
+
+{% block content %}
+
+<div class="row text-center">
+    <h1>Invoice ID #{{ invoice.pk }} Payment Success</h1>
+    <p>You were successfully charged <storng>{{ invoice.amount_string }}</storng>. Thanks!</p>
+</div>
+
+{% endblock %}

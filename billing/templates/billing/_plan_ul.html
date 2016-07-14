@@ -1,0 +1,68 @@
+<ul>
+    <li><big>{{ plan.name}}</big></li>
+    <li>
+        <strong>
+        {% if plan.num_bots_allowed == -1 %}
+            Unlimited trading bots
+        {% elif plan.num_bots_allowed == 1 %}
+            1 trading bot
+        {% else %}
+            {{ plan.num_bots_allowed }} trading bots
+        {% endif %}
+        </strong>
+    </li>
+    <li>
+        <strong>
+        {% if plan.max_trade_size_usd == -1.0 %}
+            Unlimited trade volume
+        {% else %}
+            {{ plan.trade_size_string }} max volume / trade
+        {% endif %}
+        </strong>
+    </li>
+    <li>
+        Unlimited Strategies
+    </li>
+    <li>
+        24/7 Email Support
+    </li>
+    <li>
+    {% if plan.price_cents == 0 %}
+        <h3>Free</h3>
+        <span>forever</span>
+    {% else %}
+        <h3>{{ plan.price_string }}</h3>
+        <span>per month</span>
+    {% endif %}
+    </li>
+    <li>
+    {% if not user.is_authenticated %}
+        <a class="btn btn-success" href="{% url 'registration_register' %}" >Sign Up</a>
+    {% elif user.customer.plan.pk == plan.pk %}
+        <button disabled class="btn btn-default">Current Plan</button>
+    {% else %}
+        {% if user.customer.stripe_id|length > 0 or plan.price_cents == 0 %}
+        <form action="{% url 'billing:switch_plan' plan.pk %}" method="GET"  data-bots="{{ plan.num_bots_allowed }}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Choose</a>
+        </form>
+        {% else %}
+        <form action="{% url 'billing:switch_plan' plan.pk %}" method="POST"  data-bots="{{ plan.num_bots_allowed }}">
+            {% csrf_token %}
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="{{ stripe_pk }}"
+                data-image="/img/documentation/checkout/marketplace.png"
+                data-name="Acacia Trading"
+                data-description="{{ plan.name }} Plan"
+                data-amount="{{ plan.price_cents}}"
+                data-locale="auto"
+                data-bitcoin="true"
+                data-email="{{ user.email }}">
+            </script>
+            <button type="submit" class="btn btn-success">Choose</button>
+        {% endif %}
+        </form>
+    {% endif %}
+    </li>
+</ul>

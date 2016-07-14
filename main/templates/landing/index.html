@@ -1,0 +1,73 @@
+{% extends "landing/base.html" %}
+
+{% block title %}Acacia Trading - Bitcoin & Cryptocurrency Trading System{% endblock %}
+
+{% block bodyclass %}landing{% endblock %}
+
+{% block content %}
+<!-- Banner -->
+    <section id="banner">
+        <h2>Trade cryptocurrencies like a pro.</h2>
+        <p>Create your own free Bitcoin trading bot in minutes.</p>
+        <ul class="actions">
+            <li><a href="{% url 'registration_register' %}" class="button special">Get Started</a></li>
+        </ul>
+    </section>
+
+<!-- Main -->
+    <section id="main" class="container">
+
+        <section class="box special">
+            <header class="major">
+                <h2>The ultimate trading bot system.</h2>
+                <p>
+                    Easily implement your own Bitcoin / crypto trading strategies with Acacia Trading. 
+                    Set buy and sell thresholds based on popular indicators and we'll do the rest.
+                </p>
+            </header>
+        </section>
+
+        <section class="box special features">
+            <div class="features-row">
+                <section>
+                    <span class="icon major fa-cogs accent2"></span>
+                    <h3>Powerful trading strategies</h3>
+                    <p>Our powerful strategy builder allows you to easily create great trading strategies in minutes, without touching any code. Script-based strategies are coming soon!</p>
+                </section>
+                <section>
+                    <span class="icon major fa-usd accent3"></span>
+                    <h3>Affordable</h3>
+                    <p>Trade with 1 bot and up to $100 per trade completely free. Need more? Our pro plans are reasonably priced and can easily pay for themselves.</p>
+                </section>
+            </div>
+            <div class="features-row">
+                <section>
+                    <span class="icon major fa-cloud accent4"></span>
+                    <h3>Powered by our servers</h3>
+                    <p>No need to keep your computer running 24/7 in order to keep up with the market - everything is done on our servers. Easily manage your Acacia bots from anywhere in the world with our mobile-friendly web interface.</p>
+                </section>
+                <section>
+                    <span class="icon major fa-lock accent5"></span>
+                    <h3>Secure Platform</h3>
+                    <p>Security is an absolute priority at Acacia Trading. We follow all best practices and store payment info with Stripe to keep our customers safe.</p>
+                </section>
+            </div>
+        </section>
+
+        <div class="row">
+            <div class="2u 12u(narrower)"><p></p></div>
+            <div class="8u 12u(narrower)">
+
+                <section class="box special">
+                    <h3>Start trading today.</h3>
+                    <p>Sign up and trade with 1 bot for free.</p>
+                    <ul class="actions">
+                        <li><a href="{% url 'registration_register' %}" class="button alt">Get Started</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="2u 12u(narrower)"><p></p></div>
+        </div>
+
+    </section>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% for exchange, obj in exchange_list.items %}
+<option value="{{ exchange }}"
+    {% if exchange == "btc-e" %}
+        selected="true"
+    {% endif %}
+        >{{ exchange }}</option>
+{% endfor %}

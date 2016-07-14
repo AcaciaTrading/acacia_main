@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Pay Invoice ID #{{ invoice.pk }}{% endblock %}
+
+{% block content %}
+
+<div class="row text-center">
+    <h1>Pay Invoice ID #{{ invoice.pk }}</h1>
+    <p class="lead">
+        <strong>User: </strong>{{ invoice.customer.user.username }}<br>
+        <strong>Renew Plan: </strong>{{ invoice.customer.plan.name }}<br>
+        <strong>Amount: </strong>{{ invoice.amount_string }}
+    </p>
+    <form action="{% url 'billing:pay_invoice' invoice.pk %}" method="POST">
+        {% csrf_token %}
+        <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="{{ stripe_pk }}"
+            data-image="/img/documentation/checkout/marketplace.png"
+            data-name="Acacia Trading"
+            data-description="{{ invoice.customer.plan.name }} Plan"
+            data-amount="{{ invoice.amount_cents}}"
+            data-locale="auto"
+            data-bitcoin="true"
+            data-email="{{ invoice.customer.user.email }}">
+        </script>
+        <button type="submit" class="btn btn-success">Pay Invoice</button>
+    </form>
+</div>
+
+{% endblock %}

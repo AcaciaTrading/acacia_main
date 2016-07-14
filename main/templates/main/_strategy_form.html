@@ -1,0 +1,59 @@
+<div class="form-group">
+    <label for="Name" class=" control-label">
+        Name
+        <a 
+            href="#" 
+            data-toggle="popover" 
+            data-content="Name your bot in 25 characters or less."
+        ><span class="glyphicon glyphicon-question-sign"></span></a>
+    </label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{ item.name }}">
+</div>
+<div class="form-group">
+    <label for="buy_triggers_required" class="control-label">
+        <a 
+            href="#" 
+            data-toggle="popover" 
+            data-content="This setting is the number of indicators that needs to trigger for the bot to buy."
+        ><span class="glyphicon glyphicon-question-sign"></span></a>
+        Buy Order Triggers On
+    </label>
+    <div class="input-group">
+        <input type="text" id="buy_triggers_required" name="buy_triggers_required" class="form-control" placeholder="Buy Triggers" value="{{ item.buy_triggers_required }}">
+        <span class="input-group-addon">Thresholds</span>
+    </div> 
+</div>
+<div class="form-group">
+    <label for="sell_triggers_required" class="control-label">
+        <a 
+            href="#" 
+            data-toggle="popover" 
+            data-content="This setting is the number of indicators that needs to trigger for the bot to sell."
+        ><span class="glyphicon glyphicon-question-sign"></span></a>
+        Sell Order Triggers On
+    </label>
+    <div class="input-group">
+        <input type="text" id="sell_triggers_required" name="sell_triggers_required" class="form-control" placeholder="Sell Triggers" value="{{ item.sell_triggers_required }}">
+        <span class="input-group-addon">Thresholds</span>
+    </div> 
+</div>
+<div class="form-group">
+    <label for="time_interval" class="control-label">
+        Calculation Interval
+        <a 
+            href="#" 
+            data-toggle="popover" 
+            data-content="This is the time which the bot uses to calculate the various indicators. The bot always ticks every 5 minutes."
+        ><span class="glyphicon glyphicon-question-sign"></span></a>
+    </label>
+    <select id="time_interval" name="time_interval" class="form-control">
+        {% for value, name in Strategy.TIME_INTERVAL_OPTIONS %}
+        <option
+                value="{{ value }}"
+                {% if value == item.time_interval %}
+                selected="true"
+                {% endif %}
+                >{{ name }}</option>
+        {% endfor %}
+    </select>
+</div>

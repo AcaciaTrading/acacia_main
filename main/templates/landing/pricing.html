@@ -1,0 +1,36 @@
+{% extends "landing/base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Pricing | Acacia Trading{% endblock %}
+
+{% block style %}
+<link type="text/css" rel="stylesheet" href="{% static 'cdn/bootstrap.min.css' %}">
+<link type="text/css" rel="stylesheet" href="{% static 'main/main.css' %}">
+{% endblock %}
+
+{% block content %}
+<section id="main" class="container">
+    <header>
+        <h2>Acacia Pricing Plans</h2>
+    </header>
+    <br>
+    <div class="row text-center">
+    {% for plan in object_list %}
+        <div class="plan col-sm-{% widthratio 24 object_list.count 1 %} col-md-{% widthratio 12 object_list.count 1 %}">
+            {% include "billing/_plan_ul.html" %}
+        </div>
+    {% endfor %}
+    </div>
+</section>
+
+<style>
+.plan ul {
+    background-color: white;
+}
+a:hover, a:focus {
+    text-decoration: none;
+}
+</style>
+
+{% endblock %}

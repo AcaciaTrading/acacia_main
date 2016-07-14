@@ -1,0 +1,43 @@
+<script>
+    var token = "{{ user.auth_token.key }}";
+    var urls = {
+        "bot_delete": "{% url 'main:bot_delete' %}",
+        "bot_new": "{% url 'main:bot_new' %}",
+        "bot_detail": "{% url 'main:bot_detail' %}",
+        "bot_page": "{% url 'main:bot_page' 0 %}",
+
+        "strategy_delete": "{% url 'main:strategy_delete' %}",
+        "strategy_new": "{% url 'main:strategy_new' %}",
+        "strategy_detail": "{% url 'main:strategy_detail' %}",
+        "strategy_page": "{% url 'main:strategy_page' 0 %}",
+        "backtest": "{% url 'main:backtest_detail' %}"
+    };
+    var pageItem = "{{ item.pk }}";
+    
+    var tradingPairs = {
+    {% for exchange, obj in exchange_list.items %}
+        "{{ exchange }}": [
+        {% for pair in obj.PAIRS %}
+            "{{ pair }}",
+        {% endfor %}
+        ],
+    {% endfor %}
+    };
+    
+    var selectElements = [
+        "UsingAverage",
+        {% for indicator in indicators %}
+        "Using{{ indicator }}",
+        {% endfor %}
+    ];
+    
+    var indicators = [
+        {% for indicator in indicators %}
+        "{{ indicator }}",
+        {% endfor %}
+    ];
+    
+    {% if item.enabled != None %}
+    var itemRunning = {{ item.enabled|lower }};
+    {% endif %}
+</script>

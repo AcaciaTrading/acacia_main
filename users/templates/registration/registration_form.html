@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load bootstrap %}
+{% load staticfiles %}
+
+{% block title %}
+Create Account
+{% endblock %}
+
+{% block content %}
+<div class="row text-center">
+    <h2>Create a new Acacia Trading Account</h2>
+</div>
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <ul class="nav nav-tabs nav-login">
+            <li><a href="{% url 'auth_login' %}?next={{next}}">Login</a></li>
+            <li class="active"><a href="#">Register</a></li>
+        </ul>
+        <div class="row well">
+            <form role="form" method='post' action='.'>
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <div class="row text-center">
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Create Account</button>
+                    </div>
+                    <p class="help-block">
+                        By creating an account you agree to the <a target="_blank" href="{% url 'main:terms' %}">Terms of Service</a>.
+                    </p>
+                </div>
+            </form>
+        </div>
+        {% include "registration/social_login.html" %}
+    </div>
+    <div class="col-sm-3"></div>
+</div><br/>
+<script src="{% static "users/register.js" %}"></script>
+{% endblock %}

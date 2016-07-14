@@ -1,0 +1,72 @@
+{% load staticfiles %}
+
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		{% block style %}{% endblock %}
+        <!--[if lte IE 8]><script src="{% static 'landing/js/ie/html5shiv.js' %}"></script><![endif]-->
+		<link rel="stylesheet" href="{% static 'landing/css/main.css' %}" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="{% static 'landing/css/ie8.css' %}" /><![endif]-->
+        <link rel="shortcut icon" type="image/png" href="{% static 'main/favicon.ico' %}"/>
+	</head>
+	<body class="{% block bodyclass %}{% endblock %}">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header" class="{% if landing %}alt{% endif %}">
+					<h1><a href="{% url 'main:landing' %}">Acacia Trading</a></h1>
+					<nav id="nav">
+						<ul>
+                            <li><a href="{% url 'main:faq' %}">FAQ</a></li>
+                            <li><a href="{% url 'main:pricing' %}">Pricing</a></li>
+                            <li><a href="{% url 'auth_login' %}">Login</a></li>
+							<li><a href="{% url 'registration_register' %}" class="button">Sign Up</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			{% block content %}{% endblock %}
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+                        <li><a target="_blank" href="https://twitter.com/AcaciaTrading" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a target="_blank" href="https://www.facebook.com/TradeAcacia/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Acacia Trading, Inc. All rights reserved.</li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'landing/js/jquery.min.js' %}"></script>
+			<script src="{% static 'landing/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'landing/js/jquery.scrollgress.min.js' %}"></script>
+			<script src="{% static 'landing/js/skel.min.js' %}"></script>
+			<script src="{% static 'landing/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="{% static 'landing/js/ie/respond.min.js' %}"></script><![endif]-->
+			<script src="{% static 'landing/js/main.js' %}"></script>
+
+        <!-- Google Analytics Code -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-52791855-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+	</body>
+</html>

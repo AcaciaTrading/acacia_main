@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Billing{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Billing Information</h1>
+
+<div class="row">
+    <div class="col-sm-6 text-center">
+        <h3>General</h3>
+        <br>
+        <p class="lead">You are currently subscribed to the <strong>{{ user.customer.plan.name }}</strong> plan.</p>
+        <div class="row lead">
+            <a href="{% url 'billing:plan_list' %}">Change Subscription</a>
+            {% if user.customer.plan.pk != free_plan.pk %}
+             | <a href="{% url 'billing:switch_plan' free_plan.pk %}">Cancel Subscription</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h3 class="text-center">Payment History</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Amount</th>
+                <th>Date Paid</th>
+            </tr>
+        {% for obj in invoices %}
+            <tr>
+                <td>{{ obj.amount_string }}</td>
+                <td>{{ obj.paid_string }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

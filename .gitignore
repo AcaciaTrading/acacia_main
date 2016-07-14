@@ -1,0 +1,5 @@
+*.pyc
+db.sqlite3
+local_settings.py
+staticfiles/*
+prices/price_data/*

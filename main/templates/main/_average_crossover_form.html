@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label for="ac-first_type" class="control-label">First Average Type</label>
+            <select id="ac-first_type" name="ac-first_type" class="form-control">
+                {% for value, name in AverageCrossover.AVERAGE_OPTIONS %}
+                <option
+                    value="{{ value }}"
+                    {% if value == item.average_crossover.first_type %}
+                    selected="true"
+                    {% endif %}
+                    >{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label for="ac-first_interval" class="control-label">
+                First Interval
+                <a 
+                    href="#" 
+                    data-toggle="popover" 
+                    data-content="This is the number of intervals over which the first moving average is calculated."
+                ><span class="glyphicon glyphicon-question-sign"></span></a>
+            </label>
+            <input id="ac-first_interval" name="ac-first_interval" class="form-control" type="text" value="{{ item.average_crossover.first_interval }}">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label for="ac-second_type" class="control-label">Second Average Type</label>
+            <select id="ac-second_type" name="ac-second_type" class="form-control">
+                {% for value, name in AverageCrossover.AVERAGE_OPTIONS %}
+                <option
+                    value="{{ value }}"
+                    {% if value == item.average_crossover.second_type %}
+                    selected="true"
+                    {% endif %}
+                    >{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label for="ac-second_interval" class="control-label">
+                Second Interval
+                <a 
+                    href="#" 
+                    data-toggle="popover" 
+                    data-content="This is the number of intervals over which the second moving average is calculated."
+                ><span class="glyphicon glyphicon-question-sign"></span></a>
+            </label>
+            <input id="ac-second_interval" name="ac-second_interval" class="form-control" type="text" value="{{ item.average_crossover.second_interval }}">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label for="ac-buy_threshold" class="control-label">
+                Buy Threshold
+                <a 
+                    href="#" 
+                    data-toggle="popover" 
+                    data-content="This field is the percentage which the shorter average needs to be above the longer average for the bot to buy. Numbers and decimals from 0 to 3 generally work well, but it is possible to enter any number or decimal from -100 to 100."
+                ><span class="glyphicon glyphicon-question-sign"></span></a>
+            </label>
+            <div class="input-group">
+                <input id="ac-buy_threshold" name="ac-buy_threshold" class="form-control" type="text" value="{{ item.average_crossover.buy_threshold }}">
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="form-group">
+            <label for="ac-sell_threshold" class="control-label">
+                Sell Threshold
+                <a 
+                    href="#" 
+                    data-toggle="popover" 
+                    data-content="This field is the percentage which the shorter average needs to be below the longer average for the bot to sell. Numbers and decimals from 0 to 3 generally work well, but it is possible to enter any number or decimal from -100 to 100."
+                ><span class="glyphicon glyphicon-question-sign"></span></a>
+            </label>
+            <div class="input-group">
+                <input id="ac-sell_threshold" name="ac-sell_threshold" class="form-control" type="text" value="{{ item.average_crossover.sell_threshold }}">
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+    </div>
+</div>

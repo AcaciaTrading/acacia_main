@@ -1,0 +1,14 @@
+<div class="row text-center">
+    <a class="btn btn-social btn-facebook" href="{% url 'social:begin' 'facebook' %}">
+        <i class="fa fa-facebook"></i>&nbsp;&nbsp;
+       Login with Facebook
+    </a><br/><br/>
+    <a class="btn btn-social btn-google" href="{% url 'social:begin' 'google-oauth2' %}">
+        <i class="fa fa-google"></i>&nbsp;&nbsp;
+        Login with Google
+    </a><br/><br/>
+    <a class="btn btn-social btn-clef" href="{% url 'social:begin' 'clef' %}">
+        <i class="fa fa-mobile"></i>&nbsp;&nbsp;
+        Login with Clef
+    </a>
+</div>

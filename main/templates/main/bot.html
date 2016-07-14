@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Bot Editor{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+	<h1>Trading Bot Editor</h1>
+    <p class="lead">{{ item.name }}</p>
+</div>
+<ul class="nav nav-pills tabs-centered" role="tablist">
+    <li class="active" role="presentation">
+        <a href="#status" aria-controls="status" role="tab" data-toggle="tab">
+            Status
+        </a>
+    </li> 
+    <li role="presentation">
+        <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">
+            Settings
+        </a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div id="status" role="tabpanel" class="tab-pane active text-center" style="margin-top: -20px;">
+        <div class="row spacer"></div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div id="refreshGraph" class="btn btn-success btn-sm" style="position: relative; top: 11px; display: none;">
+                    Refresh Graph
+                </div><br>
+                <div id="Graph"></div>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
+        <h4 id="TogglePrompt" style="font-weight: bold;"> </h4>
+        <div class="btn btn-primary" id="Toggle"> </div>
+        <input type="hidden" name="enabled" id="enabled" value="{{ item.enabled|lower }}">
+        <div class="row spacer">
+            <div class="col-sm-3"></div>
+            <div id="recentTradesWrapper" class="col-sm-6" style="display: none;">
+                <h1>
+                    <small>Recent Trades (last 30 days)</small>
+                </h1>
+                <table  id="recentTrades" class="spacer table table-striped">
+                </table>
+                <div class="row text-left">
+                    <span id="recentTradesProfit">Not able to calcuate profit.</span>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+    <div id="settings" role="tabpanel" class="tab-pane">
+    <!--<h2>General Trading Settings</h2>-->
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-lg-5">
+                <h3>Strategy Configuration</h3>
+                <div>
+                    <div class="form-group">
+                        <label for="name" class=" control-label">
+                            Name
+                            <a 
+                                href="#" 
+                                data-toggle="popover" 
+                                data-content="Name your bot in 25 characters or less."
+                            ><span class="glyphicon glyphicon-question-sign"></span></a>
+                        </label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{ item.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="strategy" class="control-label">
+                            Strategy
+                            <a 
+                                href="#" 
+                                data-toggle="popover" 
+                                data-content="This is the strategy that your bot will trade with."
+                            ><span class="glyphicon glyphicon-question-sign"></span></a>
+                        </label>
+                        <select id="strategy" name="strategy" class="form-control">
+                        {% for obj in user.strategies.all %}
+                            <option
+                                value="{{ obj.pk }}"
+                                {% if obj.pk == item.strategy.pk %}
+                                selected="true"
+                                {% endif %}
+                            >{{ obj.name }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="trading_pair" class="control-label">
+                            Trading Pair
+                            <a 
+                                href="#" 
+                                data-toggle="popover" 
+                                data-content="These are the currencies that you will be trading between."
+                            ><span class="glyphicon glyphicon-question-sign"></span></a>
+                        </label>
+                        <select id="trading_pair" name="trading_pair" class="form-control">
+                        {% for exchange, obj in exchange_list.items %}
+                            {% if exchange == item.exchange %}
+                            {% for pair in obj.PAIRS %}
+                                <option
+                                    value="{{ pair }}"
+                                    {% if pair == item.trading_pair %}
+                                    selected="true"
+                                    {% endif %}
+                                >{{ pair }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <label for="primary_reserve" class="control-label">
+                                    <span class="primary"></span> Reserve
+                                    <a 
+                                        href="#" 
+                                        data-toggle="popover" 
+                                        data-content="This is the currency amount that you would like the bot NOT to trade."
+                                    ><span class="glyphicon glyphicon-question-sign"></span></a>
+                                </label>
+                                <div class="input-group">
+                                    <input id="primary_reserve" name="primary_reserve" class="form-control" type="text" value="{{ item.primary_reserve }}">
+                                    <span class="input-group-addon primary"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-6 col-xs-6">
+                            <div class="form-group">
+                                <label for="secondary_reserve" class="control-label">
+                                    <span class="secondary"></span> Reserve
+                                    <a 
+                                        href="#" 
+                                        data-toggle="popover" 
+                                        data-content="This is the amount that you would like the bot NOT to trade."
+                                    ><span class="glyphicon glyphicon-question-sign"></span></a>
+                                </label>
+                                <div class="input-group">
+                                    <input id="secondary_reserve" name="secondary_reserve" class="form-control" type="text" value="{{ item.secondary_reserve }}">
+                                    <span class="input-group-addon secondary"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-sm-6 col-md-5">
+                <h3>Exchange API Setup</h3>
+                <div name="APISettings">
+                    <div class="form-group">
+                        <label for="exchange" class="control-label">Exchange</label>
+                        <select id="exchange" name="exchange" class="form-control">
+                            {% for exchange, obj in exchange_list.items %}
+                            <option
+                                value="{{ exchange }}"
+                                {% if exchange == item.exchange %}
+                                selected="true"
+                                {% endif %}
+                                >{{ exchange }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="APIKey" class=" control-label">
+                            API Key
+                            <a 
+                                href="#" 
+                                data-toggle="popover" 
+                                data-content="This is the API key for your account with the exchange. This can generally be found in the settings of the exchange."
+                            ><span class="glyphicon glyphicon-question-sign"></span></a>
+                        </label>
+                        <input type="text" id="APIKey" name="api_key" class="form-control" placeholder="API Key" value="{{ item.api_key }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="APISecret" class=" control-label">
+                            API Secret
+                            <a 
+                                href="#" 
+                                data-toggle="popover" 
+                                data-content="This is the secret API key for your account with the exchange. This can also generally be found in the settings of the exchange."
+                            ><span class="glyphicon glyphicon-question-sign"></span></a>
+                        </label>
+                        <input type="text" id="APISecret" name="api_secret" class="form-control" placeholder="API Secret" value="{{ item.api_secret }}">
+                    </div>
+                    <div id="ClientIDRow" class="form-group">
+                        <label for="ClientID" class=" control-label">Client ID</label>
+                        <input type="text" size="60px" id="ClientID" name="api_id" class="form-control" placeholder="Client ID" value="{{ item.api_id }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="Save" class="btn btn-success save">Save Settings</button>
+    </div>
+</div>
+
+{% include "main/_graph.html" %}
+
+{% include "main/_api_vars.html" %}
+<script src="{% static 'main/itemPage.js' %}"></script>
+<script src="{% static 'main/bot.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-sm-3 col-md-4"></div>
+    <div class="col-sm-6 col-md-4">
+        <form role="form">
+            <div class="form-group">
+                <label for="BacktestTradingPair" class="control-label">
+                    Trading Pair
+                    <a 
+                        href="#" 
+                        data-toggle="popover" 
+                        data-content="These are the currencies that you will be trading between."
+                    ><span class="glyphicon glyphicon-question-sign"></span></a>
+                </label>
+                <select id="BacktestTradingPair" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label for="BacktestExchange" class="control-label">Exchange</label>
+                <select id="BacktestExchange" class="form-control">
+                    {% include "main/_exchanges.html" %}
+                </select>
+            </div>
+        </form>
+        <button class="btn btn-success save">Save Settings</button>
+    </div>
+    <div class="col-sm-3 col-md-4"></div>
+</div>
+<div class="row">
+    <div class="col-sm-2 col-md-3"></div>
+    <div class="col-sm-8 col-md-6">
+        <!--<br><div id="bloading" class="text-center" style="display:none;">
+            Loading...
+        </div>-->
+        <!--<div class="progress" style="display: none" id="bprogress-container">
+            <div id="bprogress" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+        </div>-->
+        <table  id="backtestResults" class="spacer table table-striped" style="display:none;">
+        </table>
+        <div id="backtestProfit">
+
+        </div>
+        <div class="help-block spacer">
+            <br><br>
+            <strong>Backtest data only goes back to Feb 22, 2016</strong><br><br>
+            
+            Please note that backtest results are only a <strong>rough approximation</strong> of the performance
+             of a trading strategy. The backtest engine assumes that all trades will be made at 
+             exactly market price, which is not necessarily true.<br><br>
+
+            <strong>Past performance does not guarantee future success.</strong>
+        </div>
+    <div class="col-sm-2 col-md-3"></div>
+</div>
+<div class="col-sm-3"></div>
+</div>

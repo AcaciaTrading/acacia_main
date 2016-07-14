@@ -1,0 +1,47 @@
+{% extends "djstripe/base.html" %}
+{% load static djstripe_tags %}
+
+{% block title %}Choose a Subscription{% endblock title %}
+
+{% block content %}
+{{ block.super }}
+<h2 class="text-center">Choose a Subscription</h2>
+<br>
+{% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+{% if view.error %}
+    <div class="alert alert-error">{{ view.error }}</div>
+{% endif %}
+
+<div class="row container">
+    <div class="col-sm-2"></div>
+    {% for plan in PLAN_LIST %}
+      {% with plan_count=PLAN_LIST|length %}
+        <div class="col-xs-{{ 8|djdiv:plan_count|floatformat }} container">
+      {% endwith %}
+            {% if customer.current_subscription.plan == plan.plan and customer.current_subscription.status != CurrentSubscription.STATUS_CANCELLED %}
+            <div class="btn btn-default disabled">
+            {% else %}
+            <div class="panel panel-default panel-body text-center">
+            {% endif %}
+                  <p class="lead">{{ plan.name }}</p>
+                  <p>{{ plan.description }}</p>
+                    <a class="btn btn-primary" href="{% url 'djstripe:confirm' plan=plan.plan %}">Choose</a>
+            {% if customer.current_subscription.plan == plan.plan and customer.current_subscription.status != CurrentSubscription.STATUS_CANCELLED %}
+            </div>
+            <h4>Your Current Plan</h4>
+            {% else %}
+            </div>
+              {% if customer.current_subscription.amount < plan.price|djdiv:100 %}
+                <h4>Upgrade</h4>
+              {% elif customer.current_subscription.amount > plan.price|djdiv:100 %}
+                <!--<h4>Downgrade</h4>-->
+              {% endif %}
+            {% endif %}
+        </div>
+    {% endfor %}
+    <div class="col-sm-2"></div>
+</div>
+
+{% endblock content %}
